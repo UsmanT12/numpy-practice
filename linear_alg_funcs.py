@@ -32,6 +32,7 @@ def gaussian_elimination(matrix, vals):
             #Subtract the pivot row multiplied by the factor
             aug_matrix[j] = aug_matrix[j] - factor * aug_matrix[i]
     
+    #Return only the answer matrix/vector
     answer = aug_matrix[:, n:]
     return answer
 
@@ -46,6 +47,17 @@ def inverse(matrix):
     inverse = np.array(gaussian_elimination(matrix, id))
     return inverse
 
+def vector_projection(a, b):
+    #a is the vector that is projected on vector b
+    a = np.array(a)
+    b = np.array(b)
+    return a.dot(b) / b.dot(b) * b
+
+
+#Test for identity matrix function
+print("Test for identity matrix function: ")
+n = int(input("Enter the size of the identity matrix: "))
+print("Identity matrix of size ", n, " is: ", '\n', identity_matrix(n), '\n', '\n')
 
 #Test gausian elimination function
 a = np.array([[2, 1, -1], [1, -3, 1], [-3, 1, 1]])
@@ -59,3 +71,19 @@ b = np.array([[3, 6, 2], [5, 4, 8], [9, 7, 4]])
 print("Test for inverse of matrix function: ")
 print("Original b matrix: ", '\n', b, '\n')
 print("Inverse of b: ", '\n', inverse(b))
+
+#Test for vector projection function
+c = np.array([2, 3, 6])
+d = np.array([7, 6, 8])
+print("Test for vector projection function: ", '\n', vector_projection(c, d), '\n', '\n')
+
+
+#Test for Eigenvalues and Eigenvectors Functions in numpy
+e = np.array([[5, -3], [1, 1]])
+val, vector = np.linalg.eig(e)
+print("Eigenvalues: ", val, '\n', "Eigenvectors: ", '\n', vector, '\n', '\n')
+
+#Test for linear algebra solve function in numpy
+f = np.array([[2, 4, 5], [7, 2, 8], [9, 5, 6]])
+f_vals = np.array([8, 4, 3]).astype(float)
+print("Test for linear algebra solve function in numpy: ", '\n', np.linalg.solve(f, f_vals), '\n', '\n')
